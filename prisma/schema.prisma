@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  username  String   @unique
+  clerkId   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  novels    Novel[]
+  
+  @@map("users")
+}
+
+model Novel {
+  id          String   @id @default(cuid())
+  title       String
+  genre       String
+  description String?
+  style       String   @default("modern")
+  status      String   @default("draft")
+  userId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapters Chapter[]
+  
+  @@map("novels")
+}
+
+model Chapter {
+  id            String   @id @default(cuid())
+  novelId       String
+  chapterNumber Int
+  title         String
+  summary       String?
+  content       String?
+  status        String   @default("pending") // pending, generating, completed, error
+  progress      Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  novel Novel @relation(fields: [novelId], references: [id], onDelete: Cascade)
+  tasks GenerationTask[]
+  
+  @@unique([novelId, chapterNumber])
+  @@map("chapters")
+}
+
+model GenerationTask {
+  id         String   @id @default(cuid())
+  chapterId  String
+  taskType   String   // content_analysis, style_adaptation, chapter_generation, quality_review
+  parameters Json?
+  status     String   @default("pending") // pending, running, completed, error
+  progress   Int      @default(0)
+  result     String?
+  error      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  
+  chapter Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  
+  @@map("generation_tasks")
+}

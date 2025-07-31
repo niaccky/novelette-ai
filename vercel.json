@@ -1,0 +1,25 @@
+{
+  "functions": {
+    "src/app/api/**/*.ts": {
+      "maxDuration": 60
+    }
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "@next-public-clerk-publishable-key",
+      "CLERK_SECRET_KEY": "@clerk-secret-key",
+      "DATABASE_URL": "@database-url",
+      "OPENAI_API_KEY": "@openai-api-key",
+      "OPENAI_BASE_URL": "@openai-base-url",
+      "OPENAI_MODEL": "@openai-model"
+    }
+  },
+  "env": {
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "@next-public-clerk-publishable-key",
+    "CLERK_SECRET_KEY": "@clerk-secret-key", 
+    "DATABASE_URL": "@database-url",
+    "OPENAI_API_KEY": "@openai-api-key",
+    "OPENAI_BASE_URL": "@openai-base-url",
+    "OPENAI_MODEL": "@openai-model"
+  }
+}
