@@ -36,7 +36,7 @@
 
 1. **克隆项目**
 ```bash
-git clone <项目地址>
+git clone https://github.com/niaccky/novelette-ai.git
 cd ai-novel-generator
 ```
 
@@ -213,4 +213,4 @@ prisma/
 
 如果您觉得这个项目有用，请给它一个⭐️!
 
-如有问题或建议，请提交Issue或发送邮件至：support@example.com
+如有问题或建议，请提交Issue或发送邮件至：hajimi@kit.edu.kg
